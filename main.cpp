@@ -9,16 +9,6 @@ New York public high schools are looking to upgrade the car alarm software in
 their Driver’s Education vehicles to help enforce this provision and also to
 enhance driver and passenger safety.
 */
-
-// Typical Driver’s Ed. vehicles are already equipped with the following
-// devices:
-
-// Alarm buzzer (sounds when ignition is inhibited);
-// Green indicator LED (lights when ignition is enabled);
-//  Blue indicator LED (lights when the engine has started);
-
-// Display monitor (displays welcome and error messages);
-
 int main() {
   // Driver seat occupancy sensor (provides contact closure when occupied);
   // Passenger seat occupancy sensor (provides contact closure when occupied);
@@ -34,9 +24,7 @@ int main() {
   // Alarm buzzer (sounds when ignition is inhibited);
   // Green indicator LED (lights when ignition is enabled);
   //  Blue indicator LED (lights when the engine has started);
-  DigitalOut alarm(LED1);
-  // LED or actual alarm???
-
+  DigitalInOut alarm(P10);
   DigitalOut green(LED2);
   DigitalOut blue(LED3);
 
@@ -50,41 +38,56 @@ int main() {
   // sounds, or the car starts, then the system must be reset.
   //          Hence no while true loop
 
-  //  When the driver sits down, display the message, “Welcome to enhanced
-  //  alarm system model 218-W24”.
-  if driveSeatUsed == ON { print("Welcome to enhanced alarm system model 218-W24"); }
+  while
+    true {
 
-  // Light the green LED only when both seats are occupied and both seatbelts
-  // are fastened.
-  if driveSeatUsed == ON && passSeatUsed == ON && driveBelt == ON && passBelt == ON {
-      green == ON;
-    }
+      //  When the driver sits down, display the message, “Welcome to enhanced
+      //  alarm system model 218-W24”.
+      if driveSeatUsed
+        == ON { print("Welcome to enhanced alarm system model 218-W24"); }
 
-  //  When the ignition button is pushed:
-  if ignition == ON {
-
-      if green == ON {
-          // -        If the green LED is lit, then normal ignition occurs.
-          //          Light the blue LED and extinguish the green LED. Display
-          //          the message, “Engine started.”
-          blue == ON;
-          green == OFF;
-          print("Engine Started");
+      // Light the green LED only when both seats are occupied and both
+      // seatbelts are fastened.
+      if driveSeatUsed
+        == ON &&passSeatUsed == ON &&driveBelt == ON &&passBelt == ON {
+          green == ON;
         }
-      else {
-        // -        If the green LED is not lit, then ignition is inhibited.
-        // Sound the alarm buzzer;
-        //          display the message, “Ignition inhibited” and display all
-        //          the reasons why the ignition was inhibited: “Passenger seat
-        //          not occupied,” “Driver seatbelt not fastened,” etc.
-        alarm == ON print("Ignition inhibited");
 
-        if driveSeatUsed == OFF { print("Driver seat unoccupied") }
+      //  When the ignition button is pushed:
+      true if ignition == ON {
+        if green
+          == ON {
+            // -        If the green LED is lit, then normal ignition occurs.
+            //          Light the blue LED and extinguish the green LED. Display
+            //          the message, “Engine started.”
+            blue == ON;
+            green == OFF;
+            print("Engine Started");
+          }
+        else {
+          // -        If the green LED is not lit, then ignition is inhibited.
+          // Sound the alarm buzzer;
+          //          display the message, “Ignition inhibited” and display all
+          //          the reasons why the ignition was inhibited: “Passenger
+          //          seat not occupied,” “Driver seatbelt not fastened,” etc.
+          alarm == ON print("Ignition inhibited");
 
-        if passSeatUsed == OFF { print("Passenger seat unoccupied") }
+          if driveSeatUsed
+            == OFF { print("Driver seat unoccupied") }
 
-        if driveBelt == OFF { print("Driver seatbelt not fastened") }
+          if passSeatUsed
+            == OFF { print("Passenger seat unoccupied") }
 
-        if passBelt == OFF { print("Passenger seatbelt not fastened") }
+          if driveBelt
+            == OFF { print("Driver seatbelt not fastened") }
+
+          if passBelt
+            == OFF { print("Passenger seatbelt not fastened") }
+        }
+      }
+      else if {
+        while
+          true {}
       }
     }
+}
