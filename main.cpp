@@ -3,6 +3,37 @@
 #define daylightMin 100
 #define duskMax 50
 
+// Driver seat occupancy sensor (provides contact closure when occupied);
+  // Passenger seat occupancy sensor (provides contact closure when occupied);
+  // Driver seatbelt sensor (provides contact closure when fastened);
+  // Passenger seatbelt sensor (provides contact closure when fastened);
+  // Ignition push button (provides contact closure to request ignition);
+  DigitalIn driveSeatUsed(D1);
+  DigitalIn passSeatUsed(D2);
+  DigitalIn driveBelt(D6);
+  DigitalIn passBelt(D7);
+  DigitalIn ignition(D5);
+  // Alarm buzzer (sounds when ignition is inhibited);
+  // Green indicator LED (lights when ignition is enabled);
+  //  Blue indicator LED (lights when the engine has started);
+  DigitalInOut alarm(PE_10);
+  DigitalOut green(LED1);
+  DigitalOut blue(LED2);
+  // Headlight mode selector (provides ON, OFF, or AUTO signals);
+  // Light sensor (provides ambient light level signal);
+  // Left low beam lamp, right low beam lamp
+  DigitalIn headlightSelect();
+  DigitalIn lightSensor();
+  DigitalIn leftLamp();
+  DigitalIn rightLamp();
+
+  driveSeatUsed.mode(PullDown);
+  passSeatUsed.mode(PullDown);
+  driveBelt.mode(PullDown);
+  passBelt.mode(PullDown);
+  ignition.mode(PullDown);
+  
+  UnbufferedSerial system(USBTX, USBRX, 115200);
 /* 
 Ignition Subsystem
 When the driver sits down, display the message, 
@@ -115,38 +146,6 @@ void ignitionFail() {
 }
 
 int main() {
-  // Driver seat occupancy sensor (provides contact closure when occupied);
-  // Passenger seat occupancy sensor (provides contact closure when occupied);
-  // Driver seatbelt sensor (provides contact closure when fastened);
-  // Passenger seatbelt sensor (provides contact closure when fastened);
-  // Ignition push button (provides contact closure to request ignition);
-  DigitalIn driveSeatUsed(D1);
-  DigitalIn passSeatUsed(D2);
-  DigitalIn driveBelt(D6);
-  DigitalIn passBelt(D7);
-  DigitalIn ignition(D5);
-  // Alarm buzzer (sounds when ignition is inhibited);
-  // Green indicator LED (lights when ignition is enabled);
-  //  Blue indicator LED (lights when the engine has started);
-  DigitalInOut alarm(PE_10);
-  DigitalOut green(LED1);
-  DigitalOut blue(LED2);
-  // Headlight mode selector (provides ON, OFF, or AUTO signals);
-  // Light sensor (provides ambient light level signal);
-  // Left low beam lamp, right low beam lamp
-  DigitalIn headlightSelect();
-  DigitalIn lightSensor();
-  DigitalIn leftLamp();
-  DigitalIn rightLamp();
-
-  driveSeatUsed.mode(PullDown);
-  passSeatUsed.mode(PullDown);
-  driveBelt.mode(PullDown);
-  passBelt.mode(PullDown);
-  ignition.mode(PullDown);
-  
-  UnbufferedSerial system(USBTX, USBRX, 115200);
-
 // Once the error messages are displayed, the system allows additional start attempts. 
 // (note this change from Project 1 requirements)
 while (true) {
