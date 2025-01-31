@@ -41,6 +41,9 @@ void selectorUpdate();
 
 void headlightsUpdate() {
     selectorUpdate();
+    if (!ignitionRead()) {
+        lightSelect = LIGHTS_OFF;
+    }
     switch(lightSelect) {
         case LIGHTS_OFF:
             headlightsOff();
@@ -90,7 +93,7 @@ void selectorUpdate() {
     if (selectorVal >= 0.8) {
         lightSelect = LIGHTS_ON;
     } 
-    else if (selectorVal > 0.2 && selectorVal < 0.8) {
+    else if (0.2 < selectorVal && selectorVal < 0.8) {
         lightSelect = LIGHTS_AUTO;
     }
     else {

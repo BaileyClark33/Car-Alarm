@@ -7,6 +7,8 @@
 
 //=====[Declaration of private defines]========================================
 
+#define DEBOUNCE_BUTTON_TIME_MS        40
+
 //=====[Declaration of private data types]=====================================
 
 //=====[Declaration and initialization of public global objects]===============
@@ -15,21 +17,22 @@
 
 //=====[Declaration and initialization of public global variables]=============
 
-DigitalOut engineLed(LED2); // NOT SURE IF NEEDED PUBLIC
-
 //=====[Declaration and initialization of private global variables]============
 
-DigitalIn driveSeatUsed(D4);
-DigitalIn passSeatUsed(D5);
-DigitalIn driveBelt(D6);
-DigitalIn passBelt(D7);
+DigitalIn driveSeatUsed(D5);
+DigitalIn passSeatUsed(D7);
+DigitalIn driveBelt(D4);
+DigitalIn passBelt(D6);
 DigitalIn ignitionButton(BUTTON1);
 
+DigitalOut engineLed(LED2);
 DigitalOut ignitionLed(LED1);
 
 UnbufferedSerial uartUsb(USBTX, USBRX, 115200);
 
 static bool welcomed = false;
+
+static int updateTime_ms = 10;
 
 //=====[Declarations (prototypes) of private functions]========================
 
@@ -53,6 +56,7 @@ void ignitionInit() {
 }
 
 void ignitionUpdate() {
+    static int accumulatedDebounceTime = 0;
     if (!welcomed && driveSeatUsed == ON) {
         welcomeMessage();
         welcomed = true;
@@ -61,6 +65,10 @@ void ignitionUpdate() {
     checkCanIgnite();
 
     if (ignitionButton == ON) {
+        accumulatedDebounceTime += updateTime_ms;
+        }
+    if (accumulatedDebounceTime >= DEBOUNCE_BUTTON_TIME_MS && ignitionButton == OFF) {
+        accumulatedDebounceTime = 0;
         if (alarmRead()) {
             alarmDisable();
         }
@@ -73,7 +81,8 @@ void ignitionUpdate() {
         else {
             ignitionFail();
         }
-    }
+        }
+        delay(updateTime_ms);
 }
 
 bool ignitionRead() {
