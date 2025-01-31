@@ -9,6 +9,7 @@
 
 //=====[Declarations (prototypes) of public functions]=========================
 
+void headlightsInit();
 void headlightsUpdate();
 
 //=====[#include guards - end]=================================================

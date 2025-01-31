@@ -76,6 +76,10 @@ void ignitionUpdate() {
     }
 }
 
+bool ignitionRead() {
+    return engineLed == ON;
+}
+
 //=====[Implementations of private functions]==================================
 
 void checkCanIgnite() {

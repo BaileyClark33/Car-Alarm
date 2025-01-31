@@ -9,8 +9,8 @@
 
 //=====[Declarations (prototypes) of public functions]=========================
 
-void lightSensorInit();
-void lightSensorUpdate();
+void daylightSensorInit();
+void daylightSensorUpdate();
 bool readLightSensor();
 
 //=====[#include guards - end]=================================================

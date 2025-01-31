@@ -28,14 +28,14 @@ AnalogIn LDR(A1);
 
 //=====[Implementations of public functions]===================================
 
-void lightSensorInit() {
+void daylightSensorInit() {
   for (int i = 0; i < NUMBER_OF_SAMPLES; i++) {
     lightSensorReadings[i] = 0.0;
   }
   lightSensorState = OFF;
 }
 
-void lightSensorUpdate() {
+void daylightSensorUpdate() {
   static int sensorReadingIndex = 0;
   float readingSum = 0;
   float readingAvg = 0;

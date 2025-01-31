@@ -11,6 +11,7 @@
 
 void ignitionInit();
 void ignitionUpdate();
+bool ignitionRead();
 
 //=====[#include guards - end]=================================================
 
