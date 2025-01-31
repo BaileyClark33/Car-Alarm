@@ -1,7 +1,7 @@
 //=====[#include guards - begin]===============================================
 
-#ifndef _HEADLIGHTS_H_
-#define _HEADLIGHTS_H_
+#ifndef _DAYLIGHT_SENSOR_H_
+#define _DAYLIGHT_SENSOR_H_
 
 //=====[Declaration of public defines]=========================================
 
@@ -9,8 +9,10 @@
 
 //=====[Declarations (prototypes) of public functions]=========================
 
-void headlightsUpdate();
+void lightSensorInit();
+void lightSensorUpdate();
+bool readLightSensor();
 
 //=====[#include guards - end]=================================================
 
-#endif // 
+#endif // _LIGHT_SENSOR_H_
