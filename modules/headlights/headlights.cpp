@@ -16,6 +16,11 @@ typedef enum {
     LIGHTS_ON
 } selector_state_t_;
 
+typedef enum {
+    HIBEAM
+    OFFBEAM
+{ lamp_level_t_;
+
 //=====[Declaration and initialization of public global objects]===============
 
 //=====[Declaration of external public global variables]=======================
@@ -27,8 +32,11 @@ typedef enum {
 AnalogIn headlightSelect(A0);
 DigitalOut leftLamp(D2);
 DigitalOut rightLamp(D3);
+DigitalOut leftHiBeam(D0);
+DigitalOut rightHiBeam(D1);
 
 selector_state_t_ lightSelect;
+lamp_level_t_ beamSelect;
 
 //=====[Declarations (prototypes) of private functions]========================
 
@@ -57,6 +65,16 @@ void headlightsUpdate() {
         default:
             lightSelect = LIGHTS_OFF;
     }
+    switch(beamSelect) {
+        case OFFBEAM:
+            hibeamsOff();
+            break;
+        case HIBEAM:
+            hibeamsOn();
+            break;
+        default:
+            beamSelect = OFFBEAM;
+    }
 }
 
 void headlightsInit() {
@@ -69,6 +87,11 @@ void headlightsInit() {
 void headlightsOff() {
     rightLamp = OFF; 
     leftLamp = OFF; 
+}
+
+void hibeamsOff() {
+    lefthiBeam = OFF; 
+    righthiBeam = OFF; 
 }
 
 void headlightsAuto() {
@@ -85,6 +108,13 @@ void headlightsOn() {
     if (ignitionRead()) {
         rightLamp = ON;
         leftLamp = ON;
+    }
+}
+
+void hibeamsOn() {
+    if (ignitionRead()) {
+        lefthiBeam = ON; 
+        righthiBeam = ON;
     }
 }
 
