@@ -21,8 +21,8 @@
 
 DigitalIn driveSeatUsed(D0);
 DigitalIn driveBelt(D1);
-DigitalIn passSeatUsed(D3);
-DigitalIn passBelt(D4);
+DigitalIn passSeatUsed(D2);
+DigitalIn passBelt(D3);
 DigitalIn ignitionButton(BUTTON1);
 
 DigitalOut engineLed(LED2);
