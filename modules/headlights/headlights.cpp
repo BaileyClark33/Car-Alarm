@@ -83,6 +83,7 @@ void headlightsInit() {
     lightSelect = LIGHTS_OFF;
     hibeamSelect = OFFBEAM;
     daylightSensorInit();
+    hibeamSwitch.mode(PullDown);
 }
 
 //=====[Implementations of private functions]==================================
