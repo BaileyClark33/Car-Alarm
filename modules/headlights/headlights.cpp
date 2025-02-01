@@ -30,12 +30,12 @@ typedef enum {
 //=====[Declaration and initialization of private global variables]============
 
 AnalogIn headlightSelect(A0);
-DigitalOut leftLamp(D2);
-DigitalOut rightLamp(D3);
-DigitalOut leftHiBeam(D0);
-DigitalOut rightHiBeam(D1);
+DigitalOut leftLamp(D12);
+DigitalOut rightLamp(D13);
+DigitalOut leftHiBeam(D6);
+DigitalOut rightHiBeam(D7);
 
-DigitalIn hibeamSwitch(D1);
+DigitalIn hibeamSwitch(D5);
 
 selector_state_t_ lightSelect;
 lamp_level_t_ beamSelect;
