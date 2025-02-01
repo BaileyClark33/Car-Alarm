@@ -17,9 +17,9 @@ typedef enum {
 } selector_state_t_;
 
 typedef enum {
-    HIBEAM
+    HIBEAM,
     OFFBEAM
-{ lamp_level_t_;
+ } lamp_level_t_;
 
 //=====[Declaration and initialization of public global objects]===============
 
@@ -32,8 +32,8 @@ typedef enum {
 AnalogIn headlightSelect(A0);
 DigitalOut leftLamp(D12);
 DigitalOut rightLamp(D13);
-DigitalOut leftHiBeam(D6);
-DigitalOut rightHiBeam(D7);
+DigitalOut lefthiBeam(D6);
+DigitalOut righthiBeam(D7);
 
 DigitalIn hibeamSwitch(D5);
 
@@ -46,11 +46,14 @@ void headlightsOff();
 void headlightsOn();
 void headlightsAuto();
 void selectorUpdate();
+void hibeamsOff();
+void hibeamsOn();
 
 //=====[Implementations of public functions]===================================
 
 void headlightsUpdate() {
     selectorUpdate();
+    daylightSensorUpdate();
     if (!ignitionRead()) {
         lightSelect = LIGHTS_OFF;
     }
@@ -68,21 +71,11 @@ void headlightsUpdate() {
         default:
             lightSelect = LIGHTS_OFF;
     }
-    switch(beamSelect) {
-        case OFFBEAM:
-            hibeamsOff();
-            break;
-        case HIBEAM:
-            hibeamsOn();
-            break;
-        default:
-            beamSelect = OFFBEAM;
-    }
 }
 
 void headlightsInit() {
     lightSelect = LIGHTS_OFF;
-    hibeamSelect = OFFBEAM;
+    beamSelect = OFFBEAM;
     daylightSensorInit();
     hibeamSwitch.mode(PullDown);
 }
@@ -92,6 +85,7 @@ void headlightsInit() {
 void headlightsOff() {
     rightLamp = OFF; 
     leftLamp = OFF; 
+    hibeamsOff();
 }
 
 void hibeamsOff() {
@@ -114,6 +108,11 @@ void headlightsOn() {
         rightLamp = ON;
         leftLamp = ON;
     }
+    if (hibeamSwitch == ON) {
+        hibeamsOn();
+    } else {
+        hibeamsOff();
+    }
 }
 
 void hibeamsOn() {
@@ -134,10 +133,4 @@ void selectorUpdate() {
     else {
         lightSelect = LIGHTS_OFF;
   }
-
-    if (hibeamSwitch == ON) {
-        beamSelect = HIBEAM;
-    } else {
-        beamSelect = OFFBEAM;
-    }
 }
