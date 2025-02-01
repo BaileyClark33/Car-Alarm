@@ -57,6 +57,7 @@ void headlightsUpdate() {
     switch(lightSelect) {
         case LIGHTS_OFF:
             headlightsOff();
+            hibeamsOff();
             break;
         case LIGHTS_AUTO:
             headlightsAuto();
