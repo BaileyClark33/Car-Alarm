@@ -35,6 +35,8 @@ DigitalOut rightLamp(D3);
 DigitalOut leftHiBeam(D0);
 DigitalOut rightHiBeam(D1);
 
+DigitalIn hibeamSwitch(D1);
+
 selector_state_t_ lightSelect;
 lamp_level_t_ beamSelect;
 
@@ -79,6 +81,7 @@ void headlightsUpdate() {
 
 void headlightsInit() {
     lightSelect = LIGHTS_OFF;
+    hibeamSelect = OFFBEAM;
     daylightSensorInit();
 }
 
@@ -129,4 +132,10 @@ void selectorUpdate() {
     else {
         lightSelect = LIGHTS_OFF;
   }
+
+    if (hibeamSwitch == ON) {
+        beamSelect = HIBEAM;
+    } else {
+        beamSelect = OFFBEAM;
+    }
 }
