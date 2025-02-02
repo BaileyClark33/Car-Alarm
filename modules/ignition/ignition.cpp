@@ -9,14 +9,6 @@
 
 #define DEBOUNCE_BUTTON_TIME_MS        40
 
-//=====[Declaration of private data types]=====================================
-
-//=====[Declaration and initialization of public global objects]===============
-
-//=====[Declaration of external public global variables]=======================
-
-//=====[Declaration and initialization of public global variables]=============
-
 //=====[Declaration and initialization of private global variables]============
 
 DigitalIn driveSeatUsed(D0);
@@ -57,6 +49,7 @@ void ignitionInit() {
 
 void ignitionUpdate() {
     static int accumulatedDebounceTime = 0;
+    // Display welcome message only on the first time driver sits
     if (!welcomed && driveSeatUsed == ON) {
         welcomeMessage();
         welcomed = true;
@@ -64,11 +57,13 @@ void ignitionUpdate() {
 
     checkCanIgnite();
 
+    // Debounces ignition button
     if (ignitionButton == ON) {
         accumulatedDebounceTime += updateTime_ms;
         }
     if (accumulatedDebounceTime >= DEBOUNCE_BUTTON_TIME_MS && ignitionButton == OFF) {
         accumulatedDebounceTime = 0;
+        // Main ignition logic
         if (alarmRead()) {
             alarmDisable();
         }

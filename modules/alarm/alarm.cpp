@@ -4,23 +4,10 @@
 #include "alarm.h"
 #include "arm_book_lib.h"
 
-//=====[Declaration of private defines]========================================
-
-//=====[Declaration of private data types]=====================================
-
-DigitalInOut alarm(PE_10);
-
-//=====[Declaration and initialization of public global objects]===============
-
-//=====[Declaration of external public global variables]=======================
-
-//=====[Declaration and initialization of public global variables]=============
-
 //=====[Declaration and initialization of private global variables]============
 
+DigitalInOut alarm(PE_10);
 static bool alarmEnabled = false;
-
-//=====[Declarations (prototypes) of private functions]========================
 
 //=====[Implementations of public functions]===================================
 
@@ -42,5 +29,3 @@ void alarmDisable() {
 bool alarmRead() {
     return alarmEnabled;
 }
-
-//=====[Implementations of private functions]==================================

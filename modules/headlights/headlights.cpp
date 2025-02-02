@@ -6,8 +6,6 @@
 #include "daylight_sensor.h"
 #include "ignition.h"
 
-//=====[Declaration of private defines]========================================
-
 //=====[Declaration of private data types]=====================================
 
 typedef enum {
@@ -20,12 +18,6 @@ typedef enum {
     HIBEAM,
     OFFBEAM
  } lamp_level_t_;
-
-//=====[Declaration and initialization of public global objects]===============
-
-//=====[Declaration of external public global variables]=======================
-
-//=====[Declaration and initialization of public global variables]=============
 
 //=====[Declaration and initialization of private global variables]============
 
@@ -123,6 +115,7 @@ void hibeamsOn() {
 }
 
 void selectorUpdate() {
+    // Determines selected low beam setting based on potentiometer
     float selectorVal = headlightSelect.read();
     if (selectorVal >= 0.8) {
         lightSelect = LIGHTS_ON;
